@@ -1,6 +1,6 @@
 function AdminPanel() {
     return (
-        <div>
+        <main className="page-shell admin-page">
             <h1>Admin Panel</h1>
 
             <p>
@@ -11,7 +11,7 @@ function AdminPanel() {
                 Admin can monitor restaurants,
                 customers and orders.
             </p>
-        </div>
+        </main>
     );
 }
 

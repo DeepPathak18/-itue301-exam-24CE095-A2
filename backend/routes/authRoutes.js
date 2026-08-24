@@ -7,12 +7,10 @@ const router = express.Router();
 
 router.post("/login", async (req, res, next) => {
     try {
-        const {
-            name,
-            email,
-            phone,
-            address
-        } = req.body;
+        const name = String(req.body.name || "").trim();
+        const email = String(req.body.email || "").trim().toLowerCase();
+        const phone = String(req.body.phone || "").trim();
+        const address = String(req.body.address || "").trim();
 
         if (!name || !email || !phone || !address) {
             return res.status(400).json({

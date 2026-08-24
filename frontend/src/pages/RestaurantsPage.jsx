@@ -43,22 +43,29 @@ function RestaurantsPage() {
     );
 
     if (loading) {
-        return <h2>Loading restaurants...</h2>;
+        return <main className="page-shell"><div className="state-panel"><span className="loader" />Loading restaurants...</div></main>;
     }
 
     if (error) {
         return (
-            <h2>
+            <main className="page-shell"><div className="state-panel error-state"><h2>
                 Error: {error}
-            </h2>
+            </h2></div></main>
         );
     }
 
     return (
-        <div>
-            <h1>Restaurants</h1>
+        <main className="page-shell restaurants-page">
+            <div className="page-heading">
+                <div>
+                    <span className="eyebrow">Discover your next favourite</span>
+                    <h1>Restaurants</h1>
+                </div>
+                <span className="result-count">{filteredRestaurants.length} places</span>
+            </div>
 
             <input
+                className="search-input"
                 type="text"
                 placeholder="Search by name or cuisine"
                 value={search}
@@ -67,7 +74,7 @@ function RestaurantsPage() {
                 }
             />
 
-            <div>
+            <div className="restaurant-grid">
                 {filteredRestaurants.map(
                     (restaurant) => (
                         <RestaurantCard
@@ -80,7 +87,7 @@ function RestaurantsPage() {
                     )
                 )}
             </div>
-        </div>
+        </main>
     );
 }
 

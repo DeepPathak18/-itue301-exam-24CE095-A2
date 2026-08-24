@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function HomePage() {
     const { customer, login } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState("");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -23,6 +24,7 @@ function HomePage() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoginError("");
 
         try {
             const response = await fetch(
@@ -39,29 +41,35 @@ function HomePage() {
             const result = await response.json();
 
             if (!response.ok) {
-                alert(result.message);
+                setLoginError(
+                    result.errors ? result.errors.join(" ") : result.message
+                );
                 return;
             }
 
             login(result.customer, result.token);
 
-            alert("Login successful");
+            setLoginError("");
         } catch {
-            alert("Unable to connect to server");
+            setLoginError("Unable to connect to server");
         }
     };
 
     return (
-        <div>
-            <h1>Welcome to QuickBite</h1>
+        <main className="page-shell home-page">
+            <section className="hero-section">
+                <div className="hero-copy">
+                    <span className="eyebrow">Fresh food, less waiting</span>
+                    <h1>Good food is only a few clicks away.</h1>
 
-            <p>
-                Order delicious food from your
-                favourite restaurants.
-            </p>
+                    <p>
+                        Order delicious meals from your favourite local restaurants,
+                        delivered with care.
+                    </p>
+                </div>
 
-            {customer ? (
-                <div>
+                {customer ? (
+                    <div className="welcome-panel">
                     <h3>
                         Welcome, {customer.name}
                     </h3>
@@ -69,9 +77,9 @@ function HomePage() {
                     <p>
                         You are logged in.
                     </p>
-                </div>
-            ) : (
-                <form onSubmit={handleLogin}>
+                    </div>
+                ) : (
+                    <form className="auth-card" onSubmit={handleLogin}>
                     <h2>Customer Login</h2>
 
                     <input
@@ -79,6 +87,7 @@ function HomePage() {
                         placeholder="Name"
                         value={formData.name}
                         onChange={handleChange}
+                        minLength="2"
                         required
                     />
 
@@ -96,6 +105,7 @@ function HomePage() {
                         placeholder="Phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        minLength="10"
                         required
                     />
 
@@ -104,15 +114,20 @@ function HomePage() {
                         placeholder="Address"
                         value={formData.address}
                         onChange={handleChange}
+                        minLength="5"
                         required
                     />
 
                     <button type="submit">
                         Login
                     </button>
-                </form>
-            )}
-        </div>
+                    {loginError && (
+                        <p className="form-message">{loginError}</p>
+                    )}
+                    </form>
+                )}
+            </section>
+        </main>
     );
 }
 

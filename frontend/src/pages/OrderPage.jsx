@@ -76,10 +76,16 @@ function OrderPage() {
     };
 
     return (
-        <div>
-            <h1>Place Order</h1>
+        <main className="page-shell order-page">
+            <div className="page-heading">
+                <div>
+                    <span className="eyebrow">Make it yours</span>
+                    <h1>Place an order</h1>
+                </div>
+                <span className="order-badge">Ready when you are</span>
+            </div>
 
-            <form onSubmit={handleSubmit}>
+            <form className="order-card" onSubmit={handleSubmit}>
                 <div>
                     <label>
                         Selected Restaurant
@@ -156,30 +162,31 @@ function OrderPage() {
                 </button>
             </form>
 
-            <hr />
+            <section className="order-summary">
+                <span className="eyebrow">Live order preview</span>
+                <h3>Current Order</h3>
 
-            <h3>Current Order</h3>
-
-            <p>
+                <p>
                 Restaurant: {selectedRestaurant}
             </p>
 
-            <p>
+                <p>
                 Item: {itemName}
             </p>
 
-            <p>
+                <p>
                 Quantity: {quantity}
             </p>
 
-            <p>
+                <p>
                 Address: {deliveryAddress}
             </p>
 
-            {message && (
-                <p>{message}</p>
-            )}
-        </div>
+                {message && (
+                    <p className="form-message">{message}</p>
+                )}
+            </section>
+        </main>
     );
 }
 
