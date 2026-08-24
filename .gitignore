@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+
+# Production and tool build output
+dist/
+build/
+coverage/
+.vite/
+
+# Logs and runtime output
+*.log
+logs/
+pids/
+*.pid
+*.seed
+
+# Local IDE settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
