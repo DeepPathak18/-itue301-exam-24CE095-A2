@@ -26,12 +26,6 @@ const orderSchema = new mongoose.Schema(
             required: [true, "Customer ID is required"]
         },
 
-        restaurantId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Restaurant",
-            required: [true, "Restaurant ID is required"]
-        },
-
         items: {
             type: [orderItemSchema],
             required: [true, "Items are required"],

@@ -40,4 +40,6 @@ To load the sample restaurants after MongoDB is available:
 npm run seed
 ```
 
-The customer login form creates a customer on first login. Orders require a logged-in customer and a seeded restaurant. The delivery address is collected by the required order form; the exam's specified `Order` entity does not persist it.
+The customer login form creates a customer on first login. Orders require a logged-in customer. The delivery address is collected by the required order form; the exam's specified `Order` entity does not persist it.
+
+If an older database contains the removed `restaurantId` order field, run `npm run cleanup:orders` once from the `quickbite` directory.

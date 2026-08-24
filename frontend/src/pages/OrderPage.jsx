@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { AuthContext } from "../context/AuthContext";
 
@@ -6,9 +6,6 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function OrderPage() {
     const { token } = useContext(AuthContext);
-
-    const [restaurants, setRestaurants] = useState([]);
-    const [selectedRestaurant, setSelectedRestaurant] = useState("");
 
     const [itemName, setItemName] =
         useState("");
@@ -22,18 +19,10 @@ function OrderPage() {
     const [message, setMessage] =
         useState("");
 
-    useEffect(() => {
-        fetch(`${API_URL}/api/v1/restaurants`)
-            .then((response) => response.json())
-            .then((result) => setRestaurants(result.data || []))
-            .catch(() => setMessage("Unable to load restaurants"));
-    }, []);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const orderData = {
-            restaurantId: selectedRestaurant,
             items: [
                 {
                     itemName: itemName,
@@ -86,29 +75,6 @@ function OrderPage() {
             </div>
 
             <form className="order-card" onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Selected Restaurant
-                    </label>
-
-                    <select
-                        value={selectedRestaurant}
-                        onChange={(e) =>
-                            setSelectedRestaurant(
-                                e.target.value
-                            )
-                        }
-                        required
-                    >
-                        <option value="">Choose a restaurant</option>
-                        {restaurants.map((restaurant) => (
-                            <option key={restaurant._id} value={restaurant._id}>
-                                {restaurant.name} ({restaurant.cuisine})
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
                 <div>
                     <label>
                         Item Name
@@ -165,10 +131,6 @@ function OrderPage() {
             <section className="order-summary">
                 <span className="eyebrow">Live order preview</span>
                 <h3>Current Order</h3>
-
-                <p>
-                Restaurant: {selectedRestaurant}
-            </p>
 
                 <p>
                 Item: {itemName}

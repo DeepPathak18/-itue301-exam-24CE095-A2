@@ -8,14 +8,12 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
     try {
         const {
-            restaurantId,
             items,
             totalAmount
         } = req.body;
 
         const order = new Order({
             customerId: req.user.customerId,
-            restaurantId,
             items,
             totalAmount
         });
@@ -38,8 +36,7 @@ router.get("/", async (req, res, next) => {
         const orders = await Order.find({
             customerId: req.user.customerId
         })
-            .populate("customerId", "name email")
-            .populate("restaurantId", "name cuisine");
+            .populate("customerId", "name email");
 
         res.status(200).json({
             success: true,
